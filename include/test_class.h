@@ -8,7 +8,11 @@
 class TestClass{
 public:
     TestClass(){
-        tests_performed = 0;
+        tests_passed = 0;
+    }
+
+    static void Results(){
+        std::cout<<"Tests Passed: "<<tests_passed<<std::endl;
     }
 
     template <typename T>
@@ -17,8 +21,8 @@ public:
             printf(".");
         }else{
             std::cout<<"\nAssertEquals failed: "<<a<<" != "<<b<<"\n";
+            return;
         }
-        return;
     }
 
     template <typename T>
@@ -26,6 +30,7 @@ public:
         double diff = abs(a - b);
         if(diff > eps){
             std::cout<<"\nAssertAlmostEquals failed: "<<a<<" - "<<b<<" = "<<diff<<" > "<<eps<<"\n";
+            return;
         }else{
             printf(".");
         }
@@ -35,12 +40,13 @@ public:
     static void AssertNotEquals(T a, T b){
         if(a == b){
             std::cout<<"\nAssertNotEquals failed: "<<a<<" == "<<b<<"\n";
+            return;
         }else{
             printf(".");
         }
     }
 private:
-    int tests_performed;
+    static int tests_passed;
 };
 
 #endif
